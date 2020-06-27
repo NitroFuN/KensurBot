@@ -17,10 +17,10 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`Hello! This is an automated message sended by NitroFuN's secretary.\n\n`"
-    "`Nitro doesn't approved you yet.`"
+    "`Hello! This is an automated message sended by NitroFuN's secretary.\n`"
+    "`Nitro doesn't approved you yet.\n`"
     "`Please wait for he to look in. He mostly approve PMs.\n\n`"
-    "`Until then, please don't spam my Mastor's PM, you'll get blocked and reported if you do so!`")
+    "`Until then, please don't spam my Nitro PM's, you'll get blocked and reported if you do so!`")
 # =================================================================
 
 
