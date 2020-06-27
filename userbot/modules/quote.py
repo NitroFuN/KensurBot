@@ -44,11 +44,16 @@ config = dict({"api_url": "http://api.antiddos.systems",
                                    "#62d4e3", "#65bdf3", "#ff5694"],
                "default_username_color": "#b48bf2"})
 
+
 @register(outgoing=True, pattern="^.quote(?: |$)(.*)")
 async def quotecmd(message):  # noqa: C901
     """Quote a message.
     Usage: .pch [template]
     If template is missing, possible templates are fetched."""
+    if not QUOTES_API_TOKEN:
+        return await message.edit(
+            "`Error: Quotes API key is missing! Add it to environment variables or config.env.`"
+        )
     await message.delete()
     args = message.raw_text.split(" ")[1:]
     if args == []:
@@ -75,7 +80,8 @@ async def quotecmd(message):  # noqa: C901
     elif isinstance(message.to_id, telethon.tl.types.PeerChat):
         chat = await bot(telethon.tl.functions.messages.GetFullChatRequest(reply.to_id))
         participants = chat.full_chat.participants.participants
-        participant = next(filter(lambda x: x.user_id == reply.from_id, participants), None)
+        participant = next(filter(lambda x: x.user_id ==
+                                  reply.from_id, participants), None)
         if isinstance(participant, telethon.tl.types.ChatParticipantCreator):
             admintitle = strings["creator"]
         elif isinstance(participant, telethon.tl.types.ChatParticipantAdmin):
@@ -100,7 +106,8 @@ async def quotecmd(message):  # noqa: C901
 
     pfp = await bot.download_profile_photo(profile_photo_url, bytes)
     if pfp is not None:
-        profile_photo_url = "data:image/png;base64, " + base64.b64encode(pfp).decode()
+        profile_photo_url = "data:image/png;base64, " + \
+            base64.b64encode(pfp).decode()
 
     if user_id is not None:
         username_color = config["username_colors"][user_id % 7]

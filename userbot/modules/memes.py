@@ -73,77 +73,77 @@ ZALG_LIST = [[
     " ͚",
     " ",
 ],
-             [
-                 " ̍",
-                 " ̎",
-                 " ̄",
-                 " ̅",
-                 " ̿",
-                 " ̑",
-                 " ̆",
-                 " ̐",
-                 " ͒",
-                 " ͗",
-                 " ͑",
-                 " ̇",
-                 " ̈",
-                 " ̊",
-                 " ͂",
-                 " ̓",
-                 " ̈́",
-                 " ͊",
-                 " ͋",
-                 " ͌",
-                 " ̃",
-                 " ̂",
-                 " ̌",
-                 " ͐",
-                 " ́",
-                 " ̋",
-                 " ̏",
-                 " ̽",
-                 " ̉",
-                 " ͣ",
-                 " ͤ",
-                 " ͥ",
-                 " ͦ",
-                 " ͧ",
-                 " ͨ",
-                 " ͩ",
-                 " ͪ",
-                 " ͫ",
-                 " ͬ",
-                 " ͭ",
-                 " ͮ",
-                 " ͯ",
-                 " ̾",
-                 " ͛",
-                 " ͆",
-                 " ̚",
-             ],
-             [
-                 " ̕",
-                 " ̛",
-                 " ̀",
-                 " ́",
-                 " ͘",
-                 " ̡",
-                 " ̢",
-                 " ̧",
-                 " ̨",
-                 " ̴",
-                 " ̵",
-                 " ̶",
-                 " ͜",
-                 " ͝",
-                 " ͞",
-                 " ͟",
-                 " ͠",
-                 " ͢",
-                 " ̸",
-                 " ̷",
-                 " ͡",
-             ]]
+    [
+    " ̍",
+    " ̎",
+    " ̄",
+    " ̅",
+    " ̿",
+    " ̑",
+    " ̆",
+    " ̐",
+    " ͒",
+    " ͗",
+    " ͑",
+    " ̇",
+    " ̈",
+    " ̊",
+    " ͂",
+    " ̓",
+    " ̈́",
+    " ͊",
+    " ͋",
+    " ͌",
+    " ̃",
+    " ̂",
+    " ̌",
+    " ͐",
+    " ́",
+    " ̋",
+    " ̏",
+    " ̽",
+    " ̉",
+    " ͣ",
+    " ͤ",
+    " ͥ",
+    " ͦ",
+    " ͧ",
+    " ͨ",
+    " ͩ",
+    " ͪ",
+    " ͫ",
+    " ͬ",
+    " ͭ",
+    " ͮ",
+    " ͯ",
+    " ̾",
+    " ͛",
+    " ͆",
+    " ̚",
+],
+    [
+    " ̕",
+    " ̛",
+    " ̀",
+    " ́",
+    " ͘",
+    " ̡",
+    " ̢",
+    " ̧",
+    " ̨",
+    " ̴",
+    " ̵",
+    " ̶",
+    " ͜",
+    " ͝",
+    " ͞",
+    " ͟",
+    " ͠",
+    " ͢",
+    " ̸",
+    " ̷",
+    " ͡",
+]]
 
 EMOJIS = [
     "😂",
@@ -707,7 +707,7 @@ async def who(event):
         )
 
 
-async def slap(replied_user, event):
+async def slap(replied_user, _event):
     """ Construct a funny slap sentence !! """
     user_id = replied_user.id
     first_name = replied_user.first_name
@@ -734,7 +734,7 @@ async def slap(replied_user, event):
 async def lol(lel):
     """ Ok... """
     okay = "-_-"
-    for i in range(10):
+    for _ in range(10):
         okay = okay[:-1] + "_-"
         await lel.edit(okay)
 
@@ -757,7 +757,7 @@ async def decide(event):
 @register(outgoing=True, pattern="^;_;$", ignore_unsafe=True)
 async def fun(e):
     t = ";_;"
-    for j in range(10):
+    for _ in range(10):
         t = t[:-1] + "_;"
         await e.edit(t)
 
@@ -816,7 +816,7 @@ async def copypasta(cp_e):
 @register(outgoing=True, pattern="^.vapor(?: |$)(.*)")
 async def vapor(vpr):
     """ Vaporize everything! """
-    reply_text = list()
+    reply_text = []
     textx = await vpr.get_reply_message()
     message = vpr.pattern_match.group(1)
     if message:
@@ -859,7 +859,7 @@ async def stretch(stret):
 @register(outgoing=True, pattern="^.zal(?: |$)(.*)")
 async def zal(zgfy):
     """ Invoke the feeling of chaos. """
-    reply_text = list()
+    reply_text = []
     textx = await zgfy.get_reply_message()
     message = zgfy.pattern_match.group(1)
     if message:
@@ -998,7 +998,7 @@ async def pressf(f):
 @register(outgoing=True, pattern="^Oof$")
 async def Oof(e):
     t = "Oof"
-    for j in range(15):
+    for _ in range(15):
         t = t[:-1] + "of"
         await e.edit(t)
 
@@ -1006,7 +1006,7 @@ async def Oof(e):
 @register(outgoing=True, pattern="^oof$")
 async def Oof(e):
     t = "oof"
-    for j in range(15):
+    for _ in range(15):
         t = t[:-1] + "of"
         await e.edit(t)
 
@@ -1014,7 +1014,7 @@ async def Oof(e):
 @register(outgoing=True, pattern="^Oem$")
 async def oem(e):
     t = "Oem"
-    for j in range(16):
+    for _ in range(16):
         t = t[:-1] + "em"
         await e.edit(t)
 
@@ -1022,7 +1022,7 @@ async def oem(e):
 @register(outgoing=True, pattern="^oem$")
 async def Oem(e):
     t = "oem"
-    for j in range(16):
+    for _ in range(16):
         t = t[:-1] + "em"
         await e.edit(t)
 
@@ -1036,7 +1036,7 @@ async def iqless(e):
 async def moon(event):
     deq = deque(list("🌗🌘🌑🌒🌓🌔🌕🌖"))
     try:
-        for x in range(32):
+        for _ in range(32):
             await sleep(0.1)
             await event.edit("".join(deq))
             deq.rotate(1)
@@ -1048,7 +1048,7 @@ async def moon(event):
 async def earth(event):
     deq = deque(list("🌏🌍🌎🌎🌍🌏🌍🌎"))
     try:
-        for x in range(32):
+        for _ in range(32):
             await sleep(0.1)
             await event.edit("".join(deq))
             deq.rotate(1)
@@ -1060,7 +1060,7 @@ async def earth(event):
 async def clock(event):
     deq = deque(list("🕙🕘🕗🕖🕕🕔🕓🕒🕑🕐🕛"))
     try:
-        for x in range(32):
+        for _ in range(32):
             await sleep(0.1)
             await event.edit("".join(deq))
             deq.rotate(1)
@@ -1072,7 +1072,7 @@ async def clock(event):
 async def rain(event):
     deq = deque(list("☀️🌤⛅️🌥☁️🌧⛈"))
     try:
-        for x in range(32):
+        for _ in range(32):
             await sleep(0.1)
             await event.edit("".join(deq))
             deq.rotate(1)
@@ -1084,7 +1084,7 @@ async def rain(event):
 async def love(event):
     deq = deque(list("❤️🧡💛💚💙💜🖤💕💞💓💗💖💘💝"))
     try:
-        for x in range(32):
+        for _ in range(32):
             await sleep(0.1)
             await event.edit("".join(deq))
             deq.rotate(1)
@@ -1095,7 +1095,7 @@ async def love(event):
 @register(outgoing=True, pattern="^.mock(?: |$)(.*)")
 async def spongemocktext(mock):
     """ Do it and find the real fun. """
-    reply_text = list()
+    reply_text = []
     textx = await mock.get_reply_message()
     message = mock.pattern_match.group(1)
     if message:
@@ -1150,14 +1150,16 @@ async def payf(event):
         paytext * 2, paytext * 2)
     await event.edit(pay)
 
+
 @register(outgoing=True, pattern=r"^.p (.*)")
 async def payp(event):
-    paytext =  event.pattern_match.group(1)
-    pay ="{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
+    paytext = event.pattern_match.group(1)
+    pay = "{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}".format(
         paytext*7, paytext*10, paytext*11, paytext*10, paytext*7,
         paytext*3, paytext*2, paytext*2, paytext*2, paytext*2,
         paytext*2, paytext*2,)
     await event.edit(pay)
+
 
 @register(outgoing=True, pattern="^.lfy (.*)")
 async def let_me_google_that_for_you(lmgtfy_q):
@@ -1237,7 +1239,7 @@ async def typewriter(typew):
 
 @register(outgoing=True, pattern="^.fail$")
 async def fail(e):
-   if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
+    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit("`\n▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ `"
                      "`\n████▌▄▌▄▐▐▌█████ `"
                      "`\n████▌▄▌▄▐▐▌▀████ `"
@@ -1251,7 +1253,6 @@ async def lol(e):
                      "`\n╱┃┃╱╱╱┃╭━╮┃┃┃╱╱╱╱ `"
                      "`\n╱┃┗━━┓┃╰━╯┃┃┗━━┓╱ `"
                      "`\n╱┗━━━┛╰━━━╯┗━━━┛╱ `")
-
 
 
 @register(outgoing=True, pattern="^.lool$")
@@ -1292,19 +1293,19 @@ async def gtfo(e):
 
 @register(outgoing=True, pattern="^.fag$")
 async def gtfo(e):
-   if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
+    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit("`\n█████████`"
                      "`\n█▄█████▄█`"
                      "`\n█▼▼▼▼▼`"
                      "`\n█       STFU FAGGOTS`"
                      "`\n█▲▲▲▲▲`"
                      "`\n█████████`"
-                    "`\n ██   ██`")
+                     "`\n ██   ██`")
 
 
 @register(outgoing=True, pattern="^.taco$")
 async def taco(e):
-   if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
+    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         await e.edit("\n{\__/}"
                      "\n(●_●)"
                      "\n( >🌮 Want a taco?")
@@ -1330,7 +1331,7 @@ async def gey(e):
         await e.edit("`\n┈┈┈╭━━━━━╮┈┈┈┈┈\n┈┈┈┃┊┊┊┊┊┃┈┈┈┈┈`"
                      "`\n┈┈┈┃┊┊╭━╮┻╮┈┈┈┈\n┈┈┈╱╲┊┃▋┃▋┃┈┈┈┈\n┈┈╭┻┊┊╰━┻━╮┈┈┈┈`"
                      "`\n┈┈╰┳┊╭━━━┳╯┈┈┈┈\n┈┈┈┃┊┃╰━━┫┈NIGGA U GAY`"
-                    "\n┈┈┈┈┈┈┏━┓┈┈┈┈┈┈")
+                     "\n┈┈┈┈┈┈┏━┓┈┈┈┈┈┈")
 
 
 @register(outgoing=True, pattern="^.bot$")
@@ -1354,7 +1355,7 @@ async def nou(e):
         await e.edit("`\n┈╭╮╭╮\n┈┃┃┃┃\n╭┻┗┻┗╮`"
                      "`\n┃┈▋┈▋┃\n┃┈╭▋━╮━╮\n┃┈┈╭╰╯╰╯╮`"
                      "`\n┫┈┈  NoU\n┃┈╰╰━━━━╯`"
-"`\n┗━━┻━┛`")
+                     "`\n┗━━┻━┛`")
 
 
 CMD_HELP.update({

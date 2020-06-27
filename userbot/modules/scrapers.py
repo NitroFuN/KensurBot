@@ -71,7 +71,18 @@ async def carbon_api(e):
     url = CARBON.format(code=code, lang=CARBONLANG)
     driver = await chrome()
     driver.get(url)
-    await e.edit("`Processing...\n50%`")
+    await e.edit("`Processing..\n50%`")
+    download_path = './'
+    driver.command_executor._commands["send_command"] = (
+        "POST", '/session/$sessionId/chromium/send_command')
+    params = {
+        'cmd': 'Page.setDownloadBehavior',
+        'params': {
+            'behavior': 'allow',
+            'downloadPath': download_path
+        }
+    }
+    driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[@id='export-menu']").click()
     driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
     driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
@@ -95,18 +106,24 @@ async def carbon_api(e):
     # Removing carbon.png after uploading
     await e.delete()  # Deleting msg
 
+
 @register(outgoing=True, pattern="^.img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
     await event.edit("`Processing...`")
-    query = event.pattern_match.group(1)
+    counter = int(event.pattern_match.group(1).split(' ', 1)[0])
+    query = str(event.pattern_match.group(1).split(' ', 1)[1])
+    if counter > 10:
+        counter = 10
+    if counter < 1:
+        counter = 1
     lim = findall(r"lim=\d+", query)
     try:
         lim = lim[0]
         lim = lim.replace("lim=", "")
         query = query.replace("lim=" + lim[0], "")
     except IndexError:
-        lim = 7
+        lim = counter
     response = googleimagesdownload()
 
     # creating list of arguments
@@ -124,6 +141,7 @@ async def img_sampler(event):
         await event.client.get_input_entity(event.chat_id), lst)
     shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
     await event.delete()
+
 
 @register(outgoing=True, pattern="^.currency (.*)")
 async def moni(event):
@@ -155,7 +173,12 @@ async def moni(event):
 @register(outgoing=True, pattern=r"^.google (.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
-    match = q_event.pattern_match.group(1)
+    counter = int(q_event.pattern_match.group(1).split(' ', 1)[0])
+    match = str(q_event.pattern_match.group(1).split(' ', 1)[1])
+    if counter > 10:
+        counter = 10
+    if counter < 0:
+        counter = 1
     page = findall(r"page=\d+", match)
     try:
         page = page[0]
@@ -167,7 +190,7 @@ async def gsearch(q_event):
     gsearch = GoogleSearch()
     gresults = await gsearch.async_search(*search_args)
     msg = ""
-    for i in range(10):
+    for i in range(counter):
         try:
             title = gresults["titles"][i]
             link = gresults["links"][i]
@@ -597,8 +620,7 @@ async def download_video(v_url):
     c_time = time.time()
     if song:
         await v_url.edit(
-            f"`Preparing to upload song:`\n**{rip_data['title']}**"
-            "\nby *{rip_data['uploader']}*")
+            f"`Preparing to upload song:`\n**{rip_data['title']}**")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp3",
@@ -616,8 +638,7 @@ async def download_video(v_url):
         await v_url.delete()
     elif video:
         await v_url.edit(
-            f"`Preparing to upload video:`\n**{rip_data['title']}**"
-            "\nby *{rip_data['uploader']}*")
+            f"`Preparing to upload video:`\n**{rip_data['title']}**")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp4",
@@ -638,8 +659,8 @@ def deEmojify(inputString):
 
 CMD_HELP.update({
     "img":
-    ">`.img <search_query>`"
-    "\nUsage: Does an image search on Google and shows 5 images.",
+    ">`.img <counter> <search_query>`"
+    "\nUsage: Does an image search on Google and shows images.",
     "currency":
     ">`.currency <amount> <from> <to>`"
     "\nUsage: Converts various currencies for you.",
@@ -648,7 +669,7 @@ CMD_HELP.update({
     "\nUsage: Beautify your code using carbon.now.sh\n"
     "Use .crblang <text> to set language for your code.",
     "google":
-    ">`.google <query>`"
+    ">`.google <counter> <query>`"
     "\nUsage: Does a search on Google.",
     "wiki":
     ">`.wiki <query>`"
