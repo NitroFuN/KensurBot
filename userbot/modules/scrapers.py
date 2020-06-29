@@ -11,13 +11,12 @@ import asyncio
 import shutil
 from bs4 import BeautifulSoup
 import re
+import asyncurban
 from html import unescape
 from re import findall
 from urllib.parse import quote_plus
-from urllib.error import HTTPError
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
-from urbandict import define
 from requests import get
 from search_engine_parser import GoogleSearch
 from googleapiclient.discovery import build
