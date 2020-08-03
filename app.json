@@ -3,7 +3,7 @@
   "description": "[KensurBot] A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.",
   "logo": "#",
   "keywords": ["telegram", "userbot", "plugin", "modular", "productivity"],
-  "repository": "https://github.com/KenHV/KensurBot",
+  "repository": "https://github.com/NitroFuN/KensurBot",
   "website": "https://telegra.ph/How-to-host-a-Telegram-Userbot-11-02",
   "success_url": "https://t.me/KenVerseChat",
   "stack": "container",
