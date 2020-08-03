@@ -16,9 +16,10 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`Hey there! Unfortunately, I don't accept private messages from strangers.\n`"
-    "`Please contact me in a group, or wait for me to approve you.`"
-)  # thanks hackintosh5
+    "`Hello! This is an automated message sended by NitroFuN's secretary.\n`"
+    "`Nitro doesn't approved you yet.\n`"
+    "`Please wait for he to look in. He mostly approve PMs.\n\n`"
+    "`Until then, please don't spam my Nitro PM, you'll get blocked and reported if you do so!`")
 # =================================================================
 
 
@@ -65,8 +66,8 @@ async def permitpm(event):
 
             if COUNT_PM[event.chat_id] > 4:
                 await event.respond(
-                    "`You were spamming my Führer's PM, which I didn't like.`\n"
-                    "`You have been BLOCKED and reported as spam, until further notice.`"
+                    "`You were spamming my Nitro PM, which I didn't like.`\n"
+                    "`You have been BLOCKED until further notice.`"
                 )
 
                 try:
@@ -81,7 +82,6 @@ async def permitpm(event):
                     return LOGS.info("CountPM wen't rarted boi")
 
                 await event.client(BlockRequest(event.chat_id))
-                await event.client(ReportSpamRequest(peer=event.chat_id))
 
                 if BOTLOG:
                     name = await event.client.get_entity(event.chat_id)
