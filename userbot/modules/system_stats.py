@@ -118,7 +118,7 @@ async def amireallyalive(alive):
     await alive.edit(
         "`"
         "KensurBot is up and running!\n\n"
-        f"Bot    : v0.8.808\n"
+        f"Bot    : v0.8.808-NitroEdition\n"
         f"Python : {python_version()}\n"
         f"User   : {DEFAULTUSER}"
         "`"
