@@ -57,7 +57,7 @@ async def fban(event):
                     and ("FedBan reason updated" not in reply.text)
                 ):
                     failed.append(i.fed_name)
-        except:
+        except BaseException:
             failed.append(i.fed_name)
 
     reason = reason if reason else "Not specified."
@@ -132,7 +132,7 @@ async def unfban(event):
                     and ("Un-FedBan" not in reply.text)
                 ):
                     failed.append(i.fed_name)
-        except:
+        except BaseException:
             failed.append(i.fed_name)
 
     reason = reason if reason else "Not specified."
@@ -229,6 +229,4 @@ CMD_HELP.update(
         "\n\n>`.listf`"
         "\nUsage: Lists all connected federations by specified name."
         "\n\n>`.clearf`"
-        "\nUsage: Disconnects from all connected federations. Use it carefully."
-    }
-)
+        "\nUsage: Disconnects from all connected federations. Use it carefully."})
