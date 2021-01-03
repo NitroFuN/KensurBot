@@ -666,7 +666,7 @@ async def who(event):
 
     except BaseException:
         await event.edit(
-            "`Can't slap this person, need to fetch some sticks and stones !!`"
+            "**Can't slap this person, need to fetch some sticks and stones!**"
         )
 
 
@@ -687,16 +687,14 @@ async def slap(replied_user, event):
     throw = choice(THROW)
     where = choice(WHERE)
 
-    caption = "..." + temp.format(
+    return "..." + temp.format(
         victim=slapped, item=item, hits=hit, throws=throw, where=where)
-
-    return caption
 
 
 @register(outgoing=True, pattern=r"^\.(yes|no|maybe|decide)$")
 async def decide(event):
     decision = event.pattern_match.group(1).lower()
-    message_id = event.reply_to_msg_id if event.reply_to_msg_id else None
+    message_id = event.reply_to_msg_id or None
     if decision != "decide":
         r = requests.get(f"https://yesno.wtf/api?force={decision}").json()
     else:
@@ -746,10 +744,7 @@ async def copypasta(cp_e):
         elif owo.lower() == b_char:
             reply_text += "🅱️"
         else:
-            if bool(getrandbits(1)):
-                reply_text += owo.upper()
-            else:
-                reply_text += owo.lower()
+            reply_text += owo.upper() if bool(getrandbits(1)) else owo.lower()
     reply_text += choice(EMOJIS)
     await cp_e.edit(reply_text)
 
@@ -757,7 +752,7 @@ async def copypasta(cp_e):
 @register(outgoing=True, pattern=r"^\.vapor(?: |$)(.*)")
 async def vapor(vpr):
     """ Vaporize everything! """
-    reply_text = list()
+    reply_text = []
     textx = await vpr.get_reply_message()
     message = vpr.pattern_match.group(1)
     if message:
@@ -790,7 +785,7 @@ async def stretch(stret):
     elif textx:
         message = textx.text
     else:
-        await stret.edit("`GiiiiiiiB sooooooomeeeeeee teeeeeeext!`")
+        await stret.edit("**Giiiiiiib sooooooomeeeeeee teeeeeeext!**")
         return
 
     count = randint(3, 10)
@@ -802,7 +797,7 @@ async def stretch(stret):
 @register(outgoing=True, pattern=r"^\.zal(?: |$)(.*)")
 async def zal(zgfy):
     """ Invoke the feeling of chaos. """
-    reply_text = list()
+    reply_text = []
     textx = await zgfy.get_reply_message()
     message = zgfy.pattern_match.group(1)
     if message:
@@ -820,7 +815,7 @@ async def zal(zgfy):
             reply_text.append(charac)
             continue
 
-        for _ in range(0, 3):
+        for _ in range(3):
             zalgint = randint(0, 2)
 
             if zalgint == 0:
@@ -897,7 +892,7 @@ async def metoo(hahayes):
 @register(outgoing=True, pattern="^.Oof$")
 async def Oof(e):
     t = "Oof"
-    for j in range(15):
+    for _ in range(15):
         t = t[:-1] + "of"
         await e.edit(t)
 
@@ -905,7 +900,7 @@ async def Oof(e):
 @register(outgoing=True, pattern="^.oof$")
 async def oof(e):
     t = "oof"
-    for j in range(15):
+    for _ in range(15):
         t = t[:-1] + "of"
         await e.edit(t)
 
@@ -913,7 +908,7 @@ async def oof(e):
 @register(outgoing=True, pattern=r"^\.mock(?: |$)(.*)")
 async def spongemocktext(mock):
     """ Do it and find the real fun. """
-    reply_text = list()
+    reply_text = []
     textx = await mock.get_reply_message()
     message = mock.pattern_match.group(1)
     if message:
@@ -921,7 +916,7 @@ async def spongemocktext(mock):
     elif textx:
         message = textx.text
     else:
-        await mock.edit("`gIvE sOMEtHInG tO MoCk!`")
+        await mock.edit("**gIvE sOMEtHInG tO MoCk!**")
         return
 
     for charac in message:
@@ -944,7 +939,7 @@ async def claptext(memereview):
     elif textx:
         message = textx.text
     else:
-        await memereview.edit("`Hah, I don't clap pointlessly!`")
+        await memereview.edit("**Hah, I don't clap pointlessly!**")
         return
     reply_text = "👏 "
     reply_text += message.replace(" ", " 👏 ")
@@ -1030,7 +1025,7 @@ async def scam(event):
         scam_action = str(args[0]).lower()
         scam_time = int(args[1])
     else:
-        await event.edit("`Invalid Syntax !!`")
+        await event.edit("**Invalid syntax!**")
         return
     try:
         if scam_time > 0:
@@ -1051,7 +1046,7 @@ async def typewriter(typew):
     elif textx:
         message = textx.text
     else:
-        await typew.edit("`Give a text to type!`")
+        await typew.edit("**Give text to type!**")
         return
     sleep_time = 0.03
     typing_symbol = "|"

@@ -22,17 +22,22 @@ from userbot.events import register
 async def who(event):
 
     await event.edit(
-        "`Sit tight while I steal some data from *Global Network Zone*...`")
+        "**Sit tight while I steal some data from the Global Network Zone...**"
+    )
 
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
 
     replied_user = await get_user(event)
+    if replied_user is None:
+        return await event.edit(
+            "**Well that's an anonymous admin, good luck figuring out which one!**"
+        )
 
     try:
         photo, caption = await fetch_info(replied_user, event)
     except AttributeError:
-        return event.edit("`Could not fetch info of that user.`")
+        return await event.edit("**Couldn't fetch the info of this user.**")
 
     message_id_to_reply = event.message.reply_to_msg_id
 
@@ -62,6 +67,8 @@ async def get_user(event):
     """ Get the user from argument or replied message. """
     if event.reply_to_msg_id and not event.pattern_match.group(1):
         previous_message = await event.get_reply_message()
+        if previous_message.from_id is None:  # Anonymous admin seems don't have id attr
+            return None
         replied_user = await event.client(
             GetFullUserRequest(previous_message.sender_id))
     else:

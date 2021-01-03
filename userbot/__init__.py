@@ -71,10 +71,6 @@ PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN") or "False")
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME") or None
 HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY") or None
 
-# Github Credentials for updater and Gitupload.
-GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME") or None
-GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN") or None
-
 # Custom (forked) repo URL and BRANCH for updater.
 UPSTREAM_REPO_URL = (os.environ.get("UPSTREAM_REPO_URL")
                      or "https://github.com/NitroFuN/KensurBot.git")
@@ -90,11 +86,8 @@ DB_URI = os.environ.get("DATABASE_URL") or None
 # OCR API key
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY") or None
 
-# Telegraph
-TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME") or None
-
 # Default .alive name
-ALIVE_NAME = os.environ.get("ALIVE_NAME") or None
+ALIVE_NAME = str(os.environ.get("ALIVE_NAME")) or None
 
 # remove.bg API key
 REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY") or None
@@ -150,7 +143,7 @@ G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET") or None
 G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA") or None
 G_DRIVE_FOLDER_ID = os.environ.get("G_DRIVE_FOLDER_ID") or None
 TEMP_DOWNLOAD_DIRECTORY = os.environ.get(
-    "TMP_DOWNLOAD_DIRECTORY") or "./downloads"
+    "TMP_DOWNLOAD_DIRECTORY") or "./downloads/"
 
 # Terminal Alias
 TERM_ALIAS = os.environ.get("TERM_ALIAS") or None
@@ -160,25 +153,6 @@ GENIUS = os.environ.get("GENIUS_ACCESS_TOKEN") or None
 
 # Uptobox
 USR_TOKEN = os.environ.get("USR_TOKEN_UPTOBOX") or None
-
-# Setting Up CloudMail.ru and MEGA.nz extractor binaries,
-# and giving them correct perms to work properly.
-if not os.path.exists("bin"):
-    os.mkdir("bin")
-
-binaries = {
-    "https://raw.githubusercontent.com/adekmaulana/megadown/master/megadown":
-    "bin/megadown",
-    "https://raw.githubusercontent.com/yshalsager/cmrudl.py/master/cmrudl.py":
-    "bin/cmrudl",
-    "https://raw.githubusercontent.com/adekmaulana/python-scripts/master/shell/megadirect":
-    "bin/megadirect",
-}
-
-for binary, path in binaries.items():
-    downloader = SmartDL(binary, path, progress_bar=False)
-    downloader.start()
-    os.chmod(path, 0o755)
 
 # 'bot' variable
 if STRING_SESSION:
