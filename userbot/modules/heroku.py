@@ -5,6 +5,7 @@
 """
 
 import math
+import os
 
 import aiohttp
 import heroku3
@@ -29,7 +30,9 @@ else:
 async def variable(var):
     exe = var.pattern_match.group(1)
     if app is None:
-        await var.edit("**Please setup your** `HEROKU_APP_NAME`**.**")
+        await var.edit(
+            "**Please setup your** `HEROKU_APP_NAME` **and** `HEROKU_API_KEY`**.**"
+        )
         return False
     await var.edit("**Processing...**")
     variable = var.pattern_match.group(2)
@@ -87,7 +90,11 @@ async def variable(var):
 
 @register(outgoing=True, pattern=r"^\.set var (\w*) ([\s\S]*)")
 async def set_var(var):
-    await var.edit("`Setting information...`")
+    if app is None:
+        return await var.edit(
+            "**Please setup your** `HEROKU_APP_NAME` **and** `HEROKU_API_KEY`**.**"
+        )
+    await var.edit("**Setting ConfigVar...**")
     variable = var.pattern_match.group(1)
     value = var.pattern_match.group(2)
     if variable in heroku_var:
@@ -121,6 +128,10 @@ async def dyno_usage(dyno):
     """
         Get your account Dyno Usage
     """
+    if app is None:
+        return await dyno.edit(
+            "**Please setup your** `HEROKU_APP_NAME` **and** `HEROKU_API_KEY`**.**"
+        )
     await dyno.edit("**Processing...**")
     user_id = Heroku.account().id
     path = "/accounts/" + user_id + "/actions/get-quota"
@@ -172,6 +183,22 @@ async def dyno_usage(dyno):
             return True
 
 
+@register(outgoing=True, pattern=r"^\.logs")
+async def _(dyno):
+    if app is None:
+        return await dyno.edit(
+            "**Please setup your** `HEROKU_APP_NAME` **and** `HEROKU_API_KEY`**.**"
+        )
+    await dyno.edit("**Processing...**")
+    with open("logs.txt", "w") as log:
+        log.write(app.get_log())
+    await dyno.client.send_file(entity=dyno.chat_id,
+                                file="logs.txt",
+                                caption="**Heroku dyno logs**")
+    await dyno.delete()
+    return os.remove("logs.txt")
+
+
 CMD_HELP.update({
     "heroku":
     ">.`usage`"
@@ -185,4 +212,6 @@ CMD_HELP.update({
     "\n\n>`.del var <configvar>`"
     "\nUsage: Removes specified ConfigVar."
     "\nBot will restart after using this command."
+    "\n\n>`.logs`"
+    "\nUsage: Retrieves Heroku dyno logs."
 })

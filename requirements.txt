@@ -3,6 +3,7 @@ aria2p
 async_generator
 asyncurban
 bs4
+CairoSVG
 cffi
 cowpy
 dnspython
@@ -19,6 +20,7 @@ hachoir
 heroku3
 httplib2
 humanize
+lottie
 lxml
 lyricsgenius
 oauth2client
